@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <title>Movie Recommendation System</title>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+  
+
+  <style>
+  	.movie {
+      color: #fff;
+    	margin-left: auto;
+    	margin-right: auto;
+      resize: none;
+    }
+
+  	.btn-block{
+    	width: 15%;
+    	text-align: center;
+    	margin-left: auto;
+    	margin-right: auto;
+    	color: #e4e0e0;
+    }
+
+    #content {
+    	background-image: url("../static/image.png");
+    	background-color: #181818
+    }
+
+  	.footer {
+  		color: #e4e0e0;
+  		text-align:right;
+  		position: fixed;
+     	bottom: 20px;
+     	right: 20px;
+     	width: 100%;
+  	}
+
+    .card {
+      cursor: pointer;
+    }
+
+    h1 {
+	    font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	    color: #e50914;
+	    font-weight: bold;
+	    margin-top: 30px;
+	 }
+
+    #autoComplete {
+      background-position: 780px ;
+    }
+
+  </style>
+
+  <script type="text/javascript">
+    var films = {suggestions|tojson};
+  </script>
+
+  <script type="text/javascript" src="{{url_for('static', filename='content.js')}}"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+</head>
+<body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
+
+
+	<div class="ml-container" style="display: block;">
+    <center><h1 style=""> Movie Recommendation System</h1></center>
+		<form action="{{ url_for('recommend')}}">
+			<div class="form-group shadow-textarea" style="margin-top: 30px;text-align: center;color: white;">
+			<input type="text" name="movie" class="movie form-control" id="autoComplete" autocomplete="off" placeholder="Enter the Movie Name" style="background-color: #ffffff;border-color:#ffffff;width: 60%;color: #181818"/>
+		  <br>
+		</div>
+
+		<div class="form-group" style="text-align: center;">
+  <button type="submit" class="btn btn-primary btn-block" style="background-color: #e50914;text-align: center;border-color: #e50914;width:120px;">Enter</button><br><br>
+  </div>
+
+		
+	</form>
+		
+	</div>
+
+	<div class="results">
+
+		{% block content %}
+        {% endblock %}
+	</div>
+	
+	<div class="footer" style="">Made with<span style="font-size:150%;color:red;"> &hearts; </span>by Akash</div>
+
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+  <script>
+    new autoComplete({
+    data: {                              // Data src [Array, Function, Async] | (REQUIRED)
+      src: films,
+    },
+    selector: "#autoComplete",           // Input field selector              | (Optional)
+    threshold: 2,                        // Min. Chars length to start Engine | (Optional)
+    debounce: 100,                       // Post duration for engine to start | (Optional)
+    searchEngine: "strict",              // Search Engine type/mode           | (Optional)
+    resultsList: {                       // Rendered results list object      | (Optional)
+        render: true,
+        container: source => {
+            source.setAttribute("id", "food_list");
+        },
+        destination: document.querySelector("#autoComplete"),
+        position: "afterend",
+        element: "ul"
+    },
+    maxResults: 5,                         // Max. number of rendered results | (Optional)
+    highlight: true,                       // Highlight matching results      | (Optional)
+    resultItem: {                          // Rendered result item            | (Optional)
+        content: (data, source) => {
+            source.innerHTML = data.match;
+        },
+        element: "li"
+    },
+    noResults: () => {                     // Action script on noResults      | (Optional)
+        const result = document.createElement("li");
+        result.setAttribute("class", "no_result");
+        result.setAttribute("tabindex", "1");
+        result.innerHTML = "No Results";
+        document.querySelector("#autoComplete_list").appendChild(result);
+    },
+    onSelection: feedback => {             // Action script onSelection event | (Optional)
+        document.getElementById('autoComplete').value = feedback.selection.value;
+    }
+});
+
+
+  </script>
+
+</body>
+</html>
