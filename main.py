@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template, request
@@ -9,16 +15,32 @@ import urllib.request
 import pickle
 import requests
 
+
+# In[2]:
+
+
 from tmdbv3api import TMDb
 tmdb = TMDb()
 tmdb.api_key = 'a1e2b2be512ded12490a262431ae9187'
 
+
+# In[3]:
+
+
 from tmdbv3api import Movie
+
+
+# In[4]:
+
 
 # load the nlp model and tfidf vectorizer from disk
 filename = 'nlp_model.pkl'
 clf = pickle.load(open(filename, 'rb'))
 vectorizer = pickle.load(open('tranform.pkl','rb'))
+
+
+# In[5]:
+
 
 def create_sim():
     data = pd.read_csv('main_data.csv')
@@ -30,6 +52,9 @@ def create_sim():
     return data,sim
 
 
+# In[6]:
+
+
 def rcmd(m):
     m = m.lower()
     try:
@@ -38,7 +63,7 @@ def rcmd(m):
     except:
         data, sim = create_sim()
     if m not in data['movie_title'].unique():
-        return('Sorry! The movie your searched is not in our database. Please check the spelling or try with some other movies')
+        return('Sorry! The movie your searched is not in our database. Please check the spelling or try with some other movies !!')
     else:
         i = data.loc[data['movie_title']==m].index[0]
         lst = list(enumerate(sim[i]))
@@ -50,6 +75,10 @@ def rcmd(m):
             l.append(data['movie_title'][a])
         return l
 
+
+# In[7]:
+
+
 def ListOfGenres(genre_json):
     if genre_json:
         genres = []
@@ -57,6 +86,10 @@ def ListOfGenres(genre_json):
         for i in range(0,len(genre_json)):
             genres.append(genre_json[i]['name'])
         return genre_str.join(genres)
+
+
+# In[8]:
+
 
 def date_convert(s):
     MONTHS = ['January', 'February', 'Match', 'April', 'May', 'June',
@@ -69,23 +102,41 @@ def date_convert(s):
     result= month_name + ' ' + d + ' '  + y
     return result
 
+
+# In[9]:
+
+
 def MinsToHours(duration):
     if duration%60==0:
         return "{:.0f} hours".format(duration/60)
     else:
         return "{:.0f} hours {} minutes".format(duration/60,duration%60)
 
+
+# In[10]:
+
+
 def get_suggestions():
     data = pd.read_csv('main_data.csv')
     return list(data['movie_title'].str.capitalize())
 
 
+# In[11]:
+
+
 app = Flask(__name__)
+
+
+# In[12]:
+
 
 @app.route("/")
 def home():
     suggestions = get_suggestions()
     return render_template('home.html')
+
+
+# In[13]:
 
 
 @app.route("/recommend")
@@ -164,3 +215,18 @@ def recommend():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+    
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
