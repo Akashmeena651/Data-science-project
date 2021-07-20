@@ -7,6 +7,8 @@ Content Based Recommender System recommends movies similar to the movie user lik
 </blockquote>
 
 ![GIF](./static/mrswsa.gif)
+
+
 Check out the live demo: https://akmovierecommendationsystem.herokuapp.com/
 
 Check out the youtube video if the above preview is not visible: https://www.youtube.com/watch?v=muPDsWgMkpc
