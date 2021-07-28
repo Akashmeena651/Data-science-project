@@ -6,7 +6,7 @@ Content Based Recommender System recommends movies similar to the movie user lik
    <b>Note</b>: The application has been updated to a newer version. Get the source code of the newer version <a href="https://github.com/Akashmeena651/Data-science-project">here</a>
 </blockquote>
 
-![GIF](./static/mrswsa.gif)
+
 
 
 Check out the live demo: https://akmovierecommendationsystem.herokuapp.com/
