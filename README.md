@@ -8,7 +8,7 @@ Content Based Recommender System recommends movies similar to the movie user lik
 
 ![GIF](./static/demo.gif)
 
-Check out the live demo: https://akmovierecommendationsystem.herokuapp.com/
+Check out the live demo: http://ec2-52-14-100-78.us-east-2.compute.amazonaws.com:8080/
 
 working on load time
 
